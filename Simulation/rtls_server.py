@@ -6,12 +6,12 @@ from math import sqrt
 import matplotlib.pyplot as plt # Για το γράφημα
 
 # --- Διαμόρφωση Χρήστη ---
-MQTT_BROKER_HOST = "localhost"  # Ή η IP του MQTT broker αν είναι αλλού
-MQTT_BROKER_PORT = 1883
+MQTT_BROKER_HOST = "localhost"  # Ή η IP του MQTT broker αν είναι αλλού // πρεπει να σεταρω πρωτα mttq broker
+MQTT_BROKER_PORT = 1883   # standard port για mttq
 MQTT_DATA_TOPIC = "uwb/anchor_data"
 MQTT_MOTOR_CMD_TOPIC_PREFIX = "uwb/tags/" 
 
-ANCHOR_POSITIONS = {
+ANCHOR_POSITIONS = {                      #Πρέπει να ειναι ίδιο με το tag
     "anchor1": np.array([0.0, 0.0]),
     "anchor2": np.array([5.0, 0.0]), 
     "anchor3": np.array([0.0, 7.0]), 
@@ -19,7 +19,7 @@ ANCHOR_POSITIONS = {
 }
 MIN_ANCHORS_FOR_POSITIONING = 3
 PROXIMITY_THRESHOLD = 1.0 
-# --- Τέλος Διαμόρφωσης Χρήστη ---
+# --- Τέλος Διαμόρφωσης ---
 
 tag_distances = {}
 tag_positions = {}

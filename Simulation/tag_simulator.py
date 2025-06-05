@@ -129,3 +129,9 @@ finally:
     sim_client.loop_stop()
     sim_client.disconnect()
     print("Tag Simulator: Disconnected and stopped.")
+
+
+
+
+
+

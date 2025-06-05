@@ -83,9 +83,9 @@ def update_plot(tags_in_proximity_set):
             tag_plot_artists[tag_id] = point + [text] # Αποθήκευση των νέων artists
 
     fig.canvas.draw_idle() # Ζήτα από το canvas να επανασχεδιαστεί
-    plt.pause(0.01) # Μικρή παύση για να επιτραπεί η ενημέρωση του GUI
-
-
+    plt.pause(0.01) # Μικρή παύση για να επιτραπεί η ενημέρωση του GUI  
+ 
+ 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT Broker with result code {rc}")
     client.subscribe(MQTT_DATA_TOPIC)
@@ -112,37 +112,37 @@ def trilaterate_position(distances_to_anchors, anchor_coords):
         current_anchor_id = anchor_ids_used[i]
         x_i, y_i = anchor_coords[current_anchor_id]
         d_i_sq = distances_to_anchors[current_anchor_id]**2
-        
+         
         A.append([2 * (x_i - x_ref), 2 * (y_i - y_ref)])
         b.append(d_ref_sq - d_i_sq - (x_ref**2 - x_i**2) - (y_ref**2 - y_i**2))
-
+ 
     if not A or len(A[0]) == 0: return None
     A_matrix = np.array(A)
     b_vector = np.array(b)
-
+ 
     try:
         position, _, _, _ = np.linalg.lstsq(A_matrix, b_vector, rcond=None)
         return position
     except np.linalg.LinAlgError:
         print("Trilateration failed: LinAlgError")
         return None
-
-
+ 
+ 
 def on_message(client, userdata, msg):
     try:
         payload = json.loads(msg.payload.decode())
         anchor_id = payload.get("anchor_id")
         tag_id = payload.get("tag_id")
         distance = payload.get("distance")
-
+ 
         if not all([anchor_id, tag_id, isinstance(distance, (int, float))]):
             return
-
+ 
         if tag_id not in tag_distances:
             tag_distances[tag_id] = {}
-        
+         
         tag_distances[tag_id][anchor_id] = distance
-
+ 
         if len(tag_distances[tag_id]) >= MIN_ANCHORS_FOR_POSITIONING:
             current_anchor_coords = {aid: ANCHOR_POSITIONS[aid] for aid in tag_distances[tag_id] if aid in ANCHOR_POSITIONS}
             position = trilaterate_position(tag_distances[tag_id], current_anchor_coords)
@@ -151,30 +151,30 @@ def on_message(client, userdata, msg):
                 # print(f"Position for {tag_id}: {position}") # Debug
     except Exception as e:
         print(f"Error processing message: {e}")
-
+ 
 def check_proximity_and_control_motors(client_mqtt):
     """Ελέγχει την εγγύτητα και στέλνει εντολές στους κινητήρες. Επιστρέφει ένα set με τα IDs των tags που είναι κοντά."""
     active_tags = list(tag_positions.keys())
     tags_currently_in_proximity = set()
-
+ 
     for i in range(len(active_tags)):
         for j in range(i + 1, len(active_tags)):
             tag_id1 = active_tags[i]
-            tag_id2 = active_tags[j]
-
+           tag_id2 = active_tags[j]
+ 
             if time.time() - tag_positions[tag_id1]["timestamp"] > 2.0 or \
                time.time() - tag_positions[tag_id2]["timestamp"] > 2.0:
                 continue
-
+ 
             pos1 = tag_positions[tag_id1]["position"]
             pos2 = tag_positions[tag_id2]["position"]
             distance_between_tags = np.linalg.norm(pos1 - pos2)
-
+ 
             if distance_between_tags < PROXIMITY_THRESHOLD:
                 print(f"⚠️  ΕΓΓΥΤΗΤΑ: {tag_id1} και {tag_id2} είναι κοντά ({distance_between_tags:.2f}m)!")
                 tags_currently_in_proximity.add(tag_id1)
                 tags_currently_in_proximity.add(tag_id2)
-
+ 
     all_known_tags = set(motor_states.keys()).union(set(tag_positions.keys()))
     for t_id in all_known_tags:
         topic = f"{MQTT_MOTOR_CMD_TOPIC_PREFIX}{t_id}/motor"
@@ -190,15 +190,15 @@ def check_proximity_and_control_motors(client_mqtt):
                 client_mqtt.publish(topic, "OFF")
                 motor_states[t_id] = "OFF"
                 print(f"Εντολή: Κινητήρας OFF για {t_id}")
-    
+     
     return tags_currently_in_proximity
-
-
+ 
+ 
 # --- Κύριο Πρόγραμμα ---
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1) # Προσθήκη CallbackAPIVersion
 client.on_connect = on_connect
 client.on_message = on_message
-
+ 
 try:
     client.connect(MQTT_BROKER_HOST, MQTT_BROKER_PORT, 60)
 except Exception as e:
@@ -226,3 +226,6 @@ finally:
     plt.ioff() # Απενεργοποίηση interactive mode
     # plt.close(fig) # Κλείσιμο του παραθύρου του γραφήματος κατά την έξοδο (προαιρετικό)
     print("Το πρόγραμμα τερματίστηκε.")
+     
+      
+      

@@ -83,7 +83,7 @@ def update_plot(tags_in_proximity_set):
             tag_plot_artists[tag_id] = point + [text] # Αποθήκευση των νέων artists
 
     fig.canvas.draw_idle() # Ζήτα από το canvas να επανασχεδιαστεί
-    plt.pause(0.01) # Μικρή παύση για να επιτραπεί η ενημέρωση του GUI  
+    plt.pause(0.01) # Μικρή παύση για να επιτραπεί η ενημέρωση του GUI εαν αυτή ειναι σωστά 
  
  
 def on_connect(client, userdata, flags, rc):
@@ -160,7 +160,7 @@ def check_proximity_and_control_motors(client_mqtt):
     for i in range(len(active_tags)):
         for j in range(i + 1, len(active_tags)):
             tag_id1 = active_tags[i]
-           tag_id2 = active_tags[j]
+            tag_id2 = active_tags[j]
  
             if time.time() - tag_positions[tag_id1]["timestamp"] > 2.0 or \
                time.time() - tag_positions[tag_id2]["timestamp"] > 2.0:
@@ -227,5 +227,4 @@ finally:
     # plt.close(fig) # Κλείσιμο του παραθύρου του γραφήματος κατά την έξοδο (προαιρετικό)
     print("Το πρόγραμμα τερματίστηκε.")
      
-      
       

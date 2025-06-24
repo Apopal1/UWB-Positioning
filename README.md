@@ -7,5 +7,5 @@ matplotlib==3.7.1<br />
 2-Install mqtt broker mosquitto <br />
 3-Open a terminal and run "python rtls_server.py"<br />
 4-Open another terminal and run "python tag_simulator.py"<br />
-5-Close the server ONLY with CTRL+C after the desired time 
+5-Close the server ONLY with CTRL+C after the desired time <br />
 6-Open another teminal and run "python view_statistics.py" for statistics

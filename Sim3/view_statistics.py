@@ -13,30 +13,30 @@ class RTLSStatisticsViewer:
     
     def load_data(self):
         """Φορτώνει τα δεδομένα από JSON"""
-        print(f"🔍 Searching for files in: {os.getcwd()}")
-        print(f"📁 Files in directory: {[f for f in os.listdir('.') if f.endswith(('.json', '.csv'))]}")
+        print(f" Searching for files in: {os.getcwd()}")
+        print(f" Files in directory: {[f for f in os.listdir('.') if f.endswith(('.json', '.csv'))]}")
         
         if os.path.exists(self.json_file):
             try:
                 with open(self.json_file, 'r') as f:
                     self.json_data = json.load(f)
-                print(f"✅ Loaded JSON data from {self.json_file}")
+                print(f" Loaded JSON data from {self.json_file}")
             except Exception as e:
-                print(f"❌ Error loading JSON: {e}")
+                print(f" Error loading JSON: {e}")
         else:
-            print(f"❌ JSON file {self.json_file} not found")
-            print("💡 Make sure to run rtls_server.py first and terminate with Ctrl+C")
+            print(f" JSON file {self.json_file} not found")
+            print(" Make sure to run rtls_server.py first and terminate with Ctrl+C")
     
     def plot_response_times(self):
         """Γράφημα χρόνων απόκρισης"""
         if not self.json_data:
-            print("❌ No data available")
+            print(" No data available")
             return
         
         try:
             response_times = self.json_data['raw_data']['response_times']
             if not response_times:
-                print("⚠️ No response time data")
+                print(" No response time data")
                 return
             
             plt.figure(figsize=(12, 6))
@@ -59,7 +59,7 @@ class RTLSStatisticsViewer:
             plt.show()
             
         except Exception as e:
-            print(f"❌ Error plotting: {e}")
+            print(f" Error plotting: {e}")
     
     def plot_positioning_accuracy(self):
         """Γράφημα ακρίβειας εντοπισμού"""
@@ -81,7 +81,7 @@ class RTLSStatisticsViewer:
             plt.show()
             
         except Exception as e:
-            print(f"❌ Error plotting accuracy: {e}")
+            print(f" Error plotting accuracy: {e}")
     
     def plot_proximity_events(self):
         """Γράφημα γεγονότων εγγύτητας"""
@@ -91,7 +91,7 @@ class RTLSStatisticsViewer:
         try:
             events = self.json_data['raw_data']['proximity_events']
             if not events:
-                print("⚠️ No proximity events")
+                print(" No proximity events")
                 return
             
             distances = [event['distance'] for event in events]
@@ -105,19 +105,19 @@ class RTLSStatisticsViewer:
             plt.show()
             
         except Exception as e:
-            print(f"❌ Error plotting proximity: {e}")
+            print(f" Error plotting proximity: {e}")
     
     def generate_report(self):
         """Δημιουργεί αναλυτική αναφορά"""
         if not self.json_data:
-            print("❌ No data available for report")
+            print(" No data available for report")
             return
         
         try:
             stats = self.json_data['statistics']
             
             print("\n" + "="*60)
-            print("📊 RTLS PERFORMANCE REPORT")
+            print(" RTLS PERFORMANCE REPORT")
             print("="*60)
             
             session = stats['session_info']
@@ -131,12 +131,12 @@ class RTLSStatisticsViewer:
             print(f"  Max Response Time: {perf['max_response_time_ms']:.2f} ms")
             
             acc = stats['accuracy_metrics']
-            print(f"\n🎯 ACCURACY:")
+            print(f"\n ACCURACY:")
             print(f"  Avg Error: {acc['avg_positioning_accuracy_m']:.4f} m")
             print(f"  Std Deviation: {acc['std_accuracy_m']:.4f} m")
             
             sys = stats['system_metrics']
-            print(f"\n📈 SYSTEM:")
+            print(f"\n SYSTEM:")
             print(f"  Success Rate: {sys['trilateration_success_rate']:.1f}%")
             print(f"  Total Messages: {sys['total_messages']}")
             print(f"  Active Tags: {sys['active_tags']}")
@@ -144,22 +144,22 @@ class RTLSStatisticsViewer:
             print("="*60)
             
         except Exception as e:
-            print(f"❌ Error generating report: {e}")
+            print(f" Error generating report: {e}")
 
 if __name__ == "__main__":
-    print("📊 RTLS Statistics Viewer")
+    print(" RTLS Statistics Viewer")
     print("=" * 40)
     
     viewer = RTLSStatisticsViewer()
     
     if viewer.json_data:
-        print("\n🎯 Generating visualizations...")
+        print("\n Generating visualizations...")
         viewer.plot_response_times()
         viewer.plot_positioning_accuracy()
         viewer.plot_proximity_events()
         viewer.generate_report()
     else:
-        print("\n💡 To generate statistics:")
+        print("\n To generate statistics:")
         print("1. Run: python rtls_server.py")
         print("2. Run: python tag_simulator.py")
         print("3. Wait 2-3 minutes")

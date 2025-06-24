@@ -28,7 +28,7 @@ class RTLSStatisticsLogger:
         # Δημιουργία CSV headers αν δεν υπάρχει το αρχείο
         self.init_csv_file()
         
-        print(f"📊 Statistics Logger initialized - Session ID: {self.session_id}")
+        print(f" Statistics Logger initialized - Session ID: {self.session_id}")
     
     def init_csv_file(self):
         """Δημιουργεί το CSV αρχείο με headers αν δεν υπάρχει"""
@@ -88,7 +88,7 @@ class RTLSStatisticsLogger:
             'session_id': self.session_id
         }
         self.proximity_events.append(event)
-        print(f"📊 Proximity Event: {tag1} ↔ {tag2} ({distance:.2f}m)")
+        print(f" Proximity Event: {tag1} ↔ {tag2} ({distance:.2f}m)")
     
     def get_real_time_stats(self):
         """Επιστρέφει στατιστικά σε πραγματικό χρόνο"""
@@ -169,27 +169,27 @@ class RTLSStatisticsLogger:
         with open(self.log_file, 'w') as f:
             json.dump(detailed_data, f, indent=2)
         
-        print(f"📊 Statistics saved to {self.log_file}")
+        print(f" Statistics saved to {self.log_file}")
     
     def print_summary(self):
         """Εκτυπώνει σύνοψη στατιστικών"""
         stats = self.get_real_time_stats()
         
         print("\n" + "="*60)
-        print("📊 RTLS SYSTEM STATISTICS SUMMARY")
+        print(" RTLS SYSTEM STATISTICS SUMMARY")
         print("="*60)
         print(f"Session ID: {stats['session_info']['session_id']}")
         print(f"Duration: {stats['session_info']['duration_seconds']:.1f} seconds")
         
-        print(f"\n🚀 PERFORMANCE METRICS:")
+        print(f"\n PERFORMANCE METRICS:")
         print(f"  Average Response Time: {stats['performance_metrics']['avg_response_time_ms']:.2f} ms")
         print(f"  Processing Time: {stats['performance_metrics']['avg_processing_time_ms']:.2f} ms")
         
-        print(f"\n🎯 ACCURACY METRICS:")
+        print(f"\n ACCURACY METRICS:")
         print(f"  Average Positioning Accuracy: {stats['accuracy_metrics']['avg_positioning_accuracy_m']:.4f} m")
         print(f"  Standard Deviation: {stats['accuracy_metrics']['std_accuracy_m']:.4f} m")
         
-        print(f"\n📈 SYSTEM METRICS:")
+        print(f"\n SYSTEM METRICS:")
         print(f"  Trilateration Success Rate: {stats['system_metrics']['trilateration_success_rate']:.1f}%")
         print(f"  Total Messages Processed: {stats['system_metrics']['total_messages']}")
         print(f"  Active Tags: {stats['system_metrics']['active_tags']}")

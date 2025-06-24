@@ -13,7 +13,7 @@ from statistics_logger import RTLSStatisticsLogger
 
 # Signal handler για clean shutdown
 def signal_handler(sig, frame):
-    print("\n🛑 Shutting down gracefully...")
+    print("\n Shutting down gracefully...")
     global running
     running = False
 
@@ -298,10 +298,10 @@ if __name__ == "__main__":
                 continue
 
     except KeyboardInterrupt:
-        print("\n🛑 Keyboard interrupt received...")
+        print("\n Keyboard interrupt received...")
     
     finally:
-        print("🧹 Cleaning up...")
+        print(" Cleaning up...")
         running = False
         
         # Αποθήκευση στατιστικών
@@ -325,4 +325,4 @@ if __name__ == "__main__":
         except:
             pass
         
-        print("✅ Program terminated cleanly.")
+        print(" Program terminated cleanly.")

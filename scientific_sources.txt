@@ -1,0 +1,77 @@
+
+Here is a list of scientific sources to support your 100-page thesis on the Real-Time Location System you have implemented. The sources are categorized based on the core components of your project.
+
+### Part 1: General Overviews and Surveys of Real-Time Location Systems (RTLS)
+
+These papers provide a broad understanding of the field, different technologies, and their applications. They are excellent for the introductory chapters of your thesis.
+
+1.  **Title:** A Survey of Indoor Positioning Systems for Wireless Personal Networks
+    **Authors:** Gu, Y., Lo, A., & Niemegeers, I.
+    **Journal:** IEEE Communications Surveys & Tutorials, 2009.
+    **Relevance:** This is a foundational, highly-cited survey paper. It provides a comprehensive overview of indoor positioning technologies, classifying them and discussing their pros and cons. It will help you position your work within the broader academic context and understand alternative approaches.
+
+2.  **Title:** A Survey on Indoor Positioning Systems
+    **Authors:** Mainetti, L., Patrono, L., & Sergi, I.
+    **Conference:** 2014 22nd International Conference on Software, Telecommunications and Computer Networks (SoftCOM), 2014.
+    **Relevance:** A detailed analysis and comparison of existing solutions. It's a great source for understanding the state-of-the-art at the time and can be used to highlight the advantages of UWB, which your project simulates.
+
+3.  **Title:** Localization for Wireless Sensor and Ad Hoc Networks
+    **Authors:** Mao, G., Fidan, B., & Anderson, B. D. O.
+    **Journal:** Computer Networks, 2007.
+    **Relevance:** This paper provides a deep dive into the theoretical underpinnings of localization algorithms. It discusses network-wide localization and the geometric constraints, which is highly relevant to your multilateration approach.
+
+### Part 2: Ultra-Wideband (UWB) Technology for High-Precision Ranging
+
+Your simulation is based on distance measurements that would typically come from a technology like UWB (as suggested by the `esp8266_dwm1000_impl` folder). These sources cover UWB fundamentals.
+
+1.  **Title:** Ultra-wideband technology for real-time location systems
+    **Authors:** Alarifi, A., Al-Salman, A., Alsaleh, M., Alnafessah, A., Al-Hadhrami, S., Al-Ammar, M. A., & Al-Khalifa, H. S.
+    **Journal:** Journal of Computer and System Sciences, 2016.
+    **Relevance:** An excellent review paper focusing specifically on UWB for RTLS. It covers the principles of UWB, its advantages (high accuracy, resistance to multipath), and its application in various fields. This is a core reference for your technology chapter.
+
+2.  **Title:** The Decawave DWM1000 Module and the PANS Library
+    **Source:** Decawave (now Qorvo) Datasheets and Application Notes.
+    **Relevance:** While not a traditional academic paper, the official documentation for the DWM1000 module is essential. It describes the underlying technology (IEEE 802.15.4-2011 UWB), the ranging protocols (like Two-Way Ranging), and the expected performance. This is crucial for justifying the parameters used in your simulation and for discussing the practical implementation aspects.
+
+3.  **Title:** NLOS Mitigation in UWB Localization: A Review and a New Hybrid Approach
+    **Authors:** Barral, V., Escudero, C. J., García-Naya, J. A., & Suárez-Casal, P.
+    **Journal:** IEEE Access, 2019.
+    **Relevance:** Your simulator adds random noise but doesn't explicitly model Non-Line-of-Sight (NLOS) error, which is the biggest challenge in UWB localization. Discussing this problem and potential solutions (as reviewed in this paper) will add significant depth to your thesis, especially in the "future work" section.
+
+### Part 3: Localization Algorithms: Multilateration
+
+Your `rtls_server.py` uses a least-squares approach for multilateration. These papers cover the mathematical foundation of this technique.
+
+1.  **Title:** An overview of positioning by trilateration
+    **Authors:** Manolakis, D. E.
+    **Conference:** MILCOM 1996. Conference Proceedings, 1996.
+    **Relevance:** Provides a clear and concise mathematical introduction to positioning based on range measurements (trilateration/multilateration). It explains the geometry and the derivation of the position equations.
+
+2.  **Title:** A Simple and Efficient Estimator for Hyperbolic Location
+    **Authors:** Chan, Y. T., & Ho, K. C.
+    **Journal:** IEEE Transactions on Signal Processing, 1994.
+    **Relevance:** This is a classic paper that formulates the hyperbolic location problem (based on Time Difference of Arrival - TDoA) as a set of linear equations that can be solved efficiently. While your system seems to use Time of Flight (ToF) distances, this paper's approach of converting a non-linear problem into a solvable one is the foundation of many least-squares localization algorithms.
+
+3.  **Title:** Numerical Recipes in C: The Art of Scientific Computing
+    **Authors:** Press, W. H., Teukolsky, S. A., Vetterling, W. T., & Flannery, B. P.
+    **Book:** Cambridge University Press, 1992.
+    **Relevance:** Your code uses `scipy.optimize.least_squares`. Chapter 15 ("Modeling of Data") of this famous book provides an authoritative and deep explanation of least-squares fitting, what it means, how it works, and its statistical interpretation. This is an invaluable source for explaining *why* your chosen algorithm works.
+
+### Part 4: State Estimation and Filtering: The Kalman Filter
+
+Your server uses a Kalman Filter to smooth the estimates. This is a critical component for improving the system's performance and a rich topic for your thesis.
+
+1.  **Title:** An Introduction to the Kalman Filter
+    **Authors:** Welch, G., & Bishop, G.
+    **Technical Report:** University of North Carolina at Chapel Hill, 2006.
+    **Relevance:** This is the go-to introductory text for understanding the Kalman Filter. It explains the concept, the equations, and the filter's derivation in a very intuitive way. It is a must-read and a must-cite for the section of your thesis on the Kalman Filter.
+
+2.  **Title:** Kalman Filtering for Mobile Robot Localization
+    **Authors:** Martinelli, A.
+    **Book Chapter:** In "Robot Localization and Map Building", 2010.
+    **Relevance:** This chapter applies the Kalman Filter specifically to the problem of robot localization. It discusses the state representation (position, velocity) and the motion models, which are directly analogous to your tag tracking problem. It will help you formalize the model used in your `KalmanFilter` class.
+
+3.  **Title:** A comparison of EKF, UKF and PF for UWB-based positioning
+    **Authors:** Chtourou, Z., & Souissi, S.
+    **Conference:** 2015 16th International Conference on Sciences and Techniques of Automatic Control and Computer Engineering (STA), 2015.
+    **Relevance:** Your code uses a linear Kalman Filter. For a more advanced discussion, this paper compares the standard Kalman Filter (and its extensions like EKF and UKF) in the context of UWB positioning. It will allow you to discuss the limitations of your current approach and propose more advanced filters for future work, adding critical analysis to your thesis.

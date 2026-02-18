@@ -49,6 +49,7 @@ motor_states = {}
 fig, ax = None, None
 tag_plot_artists = {}
 
+
 def setup_plot():
     """Ρυθμίζει το αρχικό γράφημα."""
     global fig, ax
@@ -326,3 +327,4 @@ if __name__ == "__main__":
             pass
         
         print(" Program terminated cleanly.")
+

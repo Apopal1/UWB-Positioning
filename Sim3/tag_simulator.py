@@ -39,6 +39,7 @@ simulated_tag_targets = {
     for tag_id in SIMULATED_TAG_IDS
 }
 
+
 def update_tag_positions_and_targets():
     """Ενημερώνει τις θέσεις των προσομοιωμένων tags προς τους στόχους τους."""
     global simulated_tag_current_positions, simulated_tag_targets
@@ -120,3 +121,4 @@ finally:
     sim_client.loop_stop()
     sim_client.disconnect()
     print("Tag Simulator: Disconnected and stopped.")
+

@@ -71,12 +71,13 @@ class RTLSStatisticsLogger:
         processing_time = (time.time() - processing_start) * 1000
         self.processing_times.append(processing_time)
         
-        # Καταγραφή δραστηριότητας tag
+        # Καταγραφή δραστηριότητας tag 
         self.tag_activity[tag_id].append({
             'timestamp': time.time(),
             'success': success,
             'position': position.tolist() if position is not None else None
         })
+
     
     def log_proximity_event(self, tag1, tag2, distance):
         """Καταγράφει γεγονός εγγύτητας"""
@@ -195,3 +196,4 @@ class RTLSStatisticsLogger:
         print(f"  Active Tags: {stats['system_metrics']['active_tags']}")
         print(f"  Proximity Events: {stats['system_metrics']['proximity_events_count']}")
         print("="*60)
+

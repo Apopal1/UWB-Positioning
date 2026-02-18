@@ -112,7 +112,7 @@ class RTLSStatisticsViewer:
         if not self.json_data:
             print(" No data available for report")
             return
-        
+
         try:
             stats = self.json_data['statistics']
             
@@ -165,3 +165,4 @@ if __name__ == "__main__":
         print("3. Wait 2-3 minutes")
         print("4. Stop server with Ctrl+C")
         print("5. Run: python view_statistics.py")
+
